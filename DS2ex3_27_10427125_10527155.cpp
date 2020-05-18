@@ -1,7 +1,7 @@
 //********************************************************************/
 //*** Hash in Exercise 03 by Wu, Y.H.@CYCU-ICE
 //********************************************************************/
-
+//10427125  åº¾ç   10527155 éƒ­å¨å»· 
 
 #include <stdio.h>
 #include<bits/stdc++.h>
@@ -78,7 +78,7 @@ void Txt2Bin( string input ) {
 	fclose(out);
 } // Txt2Bin()
 
-bool ReadBin(vector<student> &data, string fileName) { // ±NbinÀÉªº¸ê®Æpushback¶ivector data¤¤
+bool ReadBin(vector<student> &data, string fileName) { // å°‡binæª”çš„è³‡æ–™pushbacké€²vector dataä¸­
 	string binfileName, txtfileName ;
 	binfileName = "input"+ fileName +".bin";
 	txtfileName = "input" + fileName + ".txt" ;
@@ -94,7 +94,7 @@ bool ReadBin(vector<student> &data, string fileName) { // ±NbinÀÉªº¸ê®Æpushback¶
 			return false ;
 		} // if
 
-		else { // bin¤£¦s¦b, ¦ıtxt¦s¦b
+		else { // binä¸å­˜åœ¨, ä½†txtå­˜åœ¨
 			Txt2Bin( fileName ) ;
 			inFile.close() ;
 			inFile.open(binfileName.c_str(), fstream::in | fstream::binary);
@@ -134,7 +134,7 @@ int hashsize ( int total ) {
 	} // while
 
 	return total;
-} // §ä¥X¤j©ó¸ê®ÆÁ`µ§¼Æ*1.2ªº³Ì¤p½è¼Æ
+} // æ‰¾å‡ºå¤§æ–¼è³‡æ–™ç¸½ç­†æ•¸*1.2çš„æœ€å°è³ªæ•¸
 
 int higheststep ( int total ) {
 	int count = 0;
@@ -154,7 +154,7 @@ int higheststep ( int total ) {
 	} // while
 
 	return total;
-} // §ä¥X¤j©ó¸ê®ÆÁ`µ§¼Æ/3ªº³Ì¤p½è¼Æ
+} // æ‰¾å‡ºå¤§æ–¼è³‡æ–™ç¸½ç­†æ•¸/3çš„æœ€å°è³ªæ•¸
 
 void value( vector<student> &data , int size ) {
 	int i = 0, j = 0 ;
@@ -163,8 +163,8 @@ void value( vector<student> &data , int size ) {
 		value = 1 ;
 		for ( j = 0 ; j < strlen(data[i].id) ; j++ ) {
 			value = ( value * data[i].id[j] ) % size ;
-		} // for() ¨C¤@²ÕªºASCII¬Û­¼%size
-		data[i].value = value ; // ±Nhash value¦s¶ivector
+		} // for() æ¯ä¸€çµ„çš„ASCIIç›¸ä¹˜%size
+		data[i].value = value ; // å°‡hash valueå­˜é€²vector
 	} // for()
 
 } //value()
@@ -179,59 +179,14 @@ void copy(student &data, hashtable &table) {
 
 
 
-/*
-void hash( vector<student> &data , vector<hashtable> &table , float &exist ) {
-int i = 0 ,default_pos = 0, count = 0;
-
-//int increase = 0;
-int counter_collisions = 0;// ç¢°æ’æµæ°´è™Ÿ
-int exist1 = 0;
-int exist2 = 0;
-
-
-for ( i = 0 ; i < data.size() ; i++ ) {
-default_pos = data[i].value ;
-for ( count = 0 ; count < table.size() ; count++ ) {
-
-if (table[default_pos].empty) { // tableæ˜¯ç©ºçš„
-copy(data[i],table[default_pos]);
-
-exist1++;
-// cout << "exist1 "<< exist1 <<endl ;
-break;
-} // tableæ˜¯ç©ºçš„
-else { // æ­¤ä½å­å·²æ»¿
-int qp_pos = default_pos + pow( ++counter_collisions, 2 );
-
-while( qp_pos < table.size() ){ // æ²’è¶…établesizeç›´æ¥æ‰¾ä¸‹ä¸€å€‹
-qp_pos = default_pos + pow( ++counter_collisions, 2 ) ;
-exist2++ ;
-//cout << "exist2 "<< exist2 <<endl ;
-if( qp_pos > table.size() ) default_pos = 0 ;
-}
-
-/*if( qp_pos > table.size() ) {// è¶…établesizeè¦å›åˆ°0é–‹å§‹æª¢æŸ¥
-// j = j - table.size();
-default_pos = 0 ;
-
-}
-} // else()
-} // for() æ‰¾table
-counter_collisions = 0;
-
-} // for() è³‡æ–™ä¸€ç­†ä¸€ç­†æ”¾
-exist = exist1+exist2 ;
-} // hash()
-
-*/
 
 
  
-void hash( vector<student> &data , vector<hashtable> &table , float &exist ,float &notexist) {
+void hash( vector<student> &data , vector<hashtable> &table , float &exist ) {
 	int i = 0 ,j = 0, count = 0;
 
 	//int increase = 0;
-  	int collisions = 0;// ¸I¼²¬y¤ô¸¹ 
+  	int collisions = 0;// ç¢°æ’æµæ°´è™Ÿ 
 	int exist1 = 0;
 	int exist2 = 0;
 	
@@ -239,53 +194,37 @@ void hash( vector<student> &data , vector<hashtable> &table , float &exist ,floa
 	
 	for ( i = 0 ; i < data.size() ; i++ ) {
 		j = data[i].value ;
-		cout<< "J: "<< j <<data[i].name  <<endl;
-		cout<< " "<< data[i].value  <<endl;
 		int old_idx = 0 ;
 		for ( count = 0 ; count < table.size() ; count++ ) {
-			if (table[j].empty) { // table¬OªÅªº
-			    cout<< "COPY: "<<data[i].name  <<endl<<"_____________________" <<endl; 
+			if (table[j].empty) { // tableæ˜¯ç©ºçš„
 				copy(data[i],table[j]);
-
-		        
-	
 				exist1++;
-			//	cout << "exist1   "<< exist1 <<endl ;
+
 				break;
-			} // table¬OªÅªº
-			else { // ¦¹¦ì¤l¤wº¡
-			
-		        cout<< "º¡ " <<endl ; 
-			
-			
+			} // tableæ˜¯ç©ºçš„
+			else { // æ­¤ä½å­å·²æ»¿
+
                 collisions++; 
-                cout << " j + pow(collisions,2) :"<<  data[i].value + pow(collisions,2) <<endl ; 
                 
-                
-				if(data[i].value + pow(collisions,2) < table.size() ){ // ¨S¶W¹Ltablesizeª½±µ§ä¤U¤@­Ó
+				if(data[i].value + pow(collisions,2) < table.size() ){ // æ²’è¶…établesizeç›´æ¥æ‰¾ä¸‹ä¸€å€‹
 					j = data[i].value + pow(collisions,2) ;
-					cout<< "·sj " << j <<endl ; 
-					exist2++ ;
-					//cout << "exist2   "<< exist2 <<endl ;
+
 				}
 				
-				else {// ¶W¹Ltablesize
-					// j = j - table.size();
+				else {// è¶…établesize
 					j = data[i].value + pow(collisions,2) ;
-					
 					j =  j  % table.size() ;
-					cout<< "T SIZE " <<  table.size() <<endl ;
-					cout<< "¶W¹L«á¨ú¾l¼Æj " << j <<endl ; 
-					
+
 				}
+				exist2++ ;
 			//	system("pause");
 				
 				
 			} // else()
-		} // for() §ätable
+		} // for() æ‰¾table
 		collisions = 0;
 	
-	} // for() ¸ê®Æ¤@µ§¤@µ§©ñ
+	} // for() è³‡æ–™ä¸€ç­†ä¸€ç­†æ”¾
 	exist = exist1+exist2 ;
 } // hash()
 
@@ -297,10 +236,10 @@ void doublehash( vector<student> &data , vector<hashtable> &table, float & compa
 	for ( i = 0 ; i < data.size() ; i++ ) {
 		compare ++ ;
 		j = data[i].value ;
-		if (table[j].empty) { // table¬OªÅªº
+		if (table[j].empty) { // tableæ˜¯ç©ºçš„
 			copy(data[i],table[j]);
-		} // table¬OªÅªº
-		else { // ¦¹¦ì¤l¤wº¡
+		} // tableæ˜¯ç©ºçš„
+		else { // æ­¤ä½å­å·²æ»¿
             step = 1 ;
 			for ( count = 0 ; count < strlen(data[i].id) ; count++ ) {
 				step = step * data[i].id[count] ;
@@ -323,23 +262,51 @@ void doublehash( vector<student> &data , vector<hashtable> &table, float & compa
 
 		} // else()
 
-	} // for() ¸ê®Æ¤@µ§¤@µ§©ñ
+	} // for() è³‡æ–™ä¸€ç­†ä¸€ç­†æ”¾
 
 } // doublehash()
 
 void calculatenotexist(float &notexist, vector<hashtable> table, int size) {
+	
 	int i = 0 , j = 0 ;
-	int collisions = 1;
+	int collisions = 0;
+	int count = 0;
 	for ( i = 0 ; i < size ; i++ ) {
 		j = i ;
-		while (!table[j].empty) {
-			notexist++;
-			j = j+ pow(collisions,2) ;
-			//j++;
-			if( j > size-1 )
-				j = 0 ;
-		} // while()
+		count = j ;
+
+        if(table[j].empty){ 	
+		}
+		
+		while(!table[j].empty) {
+            collisions++; 
+            notexist++;   
+        
+			if( (count  + pow(collisions,2)) < table.size() ){ //æ²’è¶…é 
+ 
+		    	j =count + pow(collisions ,2) ;	
+			}
+
+			else{
+
+		      	j = count + pow(collisions ,2) ;
+		      	j =  j  % table.size() ;	
+			}
+
+       		
+
+
+		} 
+			
+			 collisions = 0 ;
+				
+
+			
+		
+
 	} // for()
+	
+	
 } // notexist()
 
 
@@ -382,27 +349,28 @@ void taskone() {
 	string fileName ;
 	int size ;
 	float exist = 0 , notexist = 0 ;
-	cout << "½Ğ¿é¤JÀÉ®×¦WºÙ\n" ;
+	cout << "è«‹è¼¸å…¥æª”æ¡ˆåç¨±\n" ;
 	cin >> fileName ;
-	while ( fileName != "0" ) {  				// ÅªbinÀÉ
+	while ( fileName != "0" ) {  				// è®€binæª”
 		if (ReadBin(data,fileName))
 			break;
-		cout << "½Ğ¿é¤JÀÉ®×¦WºÙ\n";
+		cout << "è«‹è¼¸å…¥æª”æ¡ˆåç¨±\n";
 		cin >> fileName ;
 	}
 
 	size = hashsize(data.size());				//
-	table.resize(size); 						//±Nhashtable¤j¤p­«¾ã
-	value ( data, size ) ; 					// ºâ¥X¨C¦ì¾Ç¥ÍªºÂø´ê­È¨Ã¦s¤Jdata.value¤¤
-	hash ( data, table, exist,notexist) ;				// hash¤JÂø´êªí
+	table.resize(size); 						//å°‡hashtableå¤§å°é‡æ•´
+	value ( data, size ) ; 					// ç®—å‡ºæ¯ä½å­¸ç”Ÿçš„é›œæ¹Šå€¼ä¸¦å­˜å…¥data.valueä¸­
+	hash ( data, table, exist) ;				// hashå…¥é›œæ¹Šè¡¨
 	
-	//calculatenotexist(notexist, table, size) ;
+	calculatenotexist(notexist, table, size) ;
+
 	notexist = notexist / size ;
-	//cout << "exist:   \n" << exist << "_   "<< data.size() << "\n"; 
+
 	exist = exist / data.size();
 	
 	
-	//////////////////////////¶}©l¼gÀÉ
+	//////////////////////////é–‹å§‹å¯«æª”
 
 	fileName = "quadratic" + fileName + ".txt" ;
 	ofstream outFile(fileName.c_str()) ;
@@ -412,7 +380,7 @@ void taskone() {
 		outFile << " --- Hash Table X --- (Quadratic probing)\n";
 		for ( int i = 0 ; i < table.size() ; i++ ) {
 			outFile << "[" << i << "]\t" ;
-			if ( !table[i].empty ) { //¦¹table¦³¸ê®Æ
+			if ( !table[i].empty ) { //æ­¤tableæœ‰è³‡æ–™
 				outFile << table[i].value << ",\t" ;
 				outFile << table[i].id << ",\t" ;
 				outFile << table[i].name << ",\t" ;
@@ -426,8 +394,8 @@ void taskone() {
 
 	if ( fileName != "linear0.txt" ) {
 		cout << "Hash Table X has been created.\n" ;
-		cout << "unsuccessful search: " << notexist << " comparisons on average\n" ;
-		cout << "successful search: " << exist << " comparisons on average\n" ;
+		cout << "unsuccessful search: " <<  setprecision(5)<<notexist << " comparisons on average\n" ;
+		cout << "successful search: " << setprecision(5)<< exist << " comparisons on average\n" ;
 	} // if
 
 } // taskone()
@@ -438,21 +406,21 @@ void tasktwo() { // tasktwo : build double hash
 	string fileName ;
 	int size ;
 	float compare = 0 ;
-	cout << "½Ğ¿é¤JÀÉ®×¦WºÙ\n" ;
+	cout << "è«‹è¼¸å…¥æª”æ¡ˆåç¨±\n" ;
 	cin >> fileName ;
-	while ( fileName != "0" ) {  				// ÅªbinÀÉ
+	while ( fileName != "0" ) {  				// è®€binæª”
 		if (ReadBin(data,fileName))
 			break;
-		cout << "½Ğ¿é¤JÀÉ®×¦WºÙ\n";
+		cout << "è«‹è¼¸å…¥æª”æ¡ˆåç¨±\n";
 		cin >> fileName ;
 	} // while
 
 	size = hashsize(data.size());				//
-	table.resize(size); 						//±Nhashtable¤j¤p­«¾ã
-	value ( data, size ) ; 					// ºâ¥X¨C¦ì¾Ç¥ÍªºÂø´ê­È¨Ã¦s¤Jdata.value¤¤
-	doublehash ( data, table, compare ) ;				// hash¤JÂø´êªí
+	table.resize(size); 						//å°‡hashtableå¤§å°é‡æ•´
+	value ( data, size ) ; 					// ç®—å‡ºæ¯ä½å­¸ç”Ÿçš„é›œæ¹Šå€¼ä¸¦å­˜å…¥data.valueä¸­
+	doublehash ( data, table, compare ) ;				// hashå…¥é›œæ¹Šè¡¨
 	compare = compare / data.size() ;
-	//////////////////////////¶}©l¼gÀÉ
+	//////////////////////////é–‹å§‹å¯«æª”
 
 	fileName = "double" + fileName + ".txt" ;
 	ofstream outFile(fileName.c_str()) ;
@@ -462,7 +430,7 @@ void tasktwo() { // tasktwo : build double hash
 		outFile << " --- Hash Table Y --- (double hashing)\n";
 		for ( int i = 0 ; i < table.size() ; i++ ) {
 			outFile << "[" << i << "]\t" ;
-			if ( !table[i].empty ) { //¦¹table¦³¸ê®Æ
+			if ( !table[i].empty ) { //æ­¤tableæœ‰è³‡æ–™
 				outFile << table[i].value << ",\t" ;
 				outFile << table[i].id << ",\t" ;
 				outFile << table[i].name << ",\t" ;
